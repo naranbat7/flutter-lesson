@@ -13,6 +13,9 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+  json_serializable: ^6.5.3
+  json_annotation: ^4.7.0
+  build_runner: ^2.3.2
 
 dev_dependencies:
   flutter_test:
