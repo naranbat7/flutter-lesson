@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:movie/model/movie/index.dart';
 
-class MovieDetailPage extends StatelessWidget {
+class MovieDetailPage extends StatefulWidget {
   final MovieModel data;
+  final List<int> wishListIds;
+  final void Function(int) onToggleWishList;
 
-  const MovieDetailPage(this.data, {super.key});
+  const MovieDetailPage(this.data, this.wishListIds, this.onToggleWishList, {super.key});
 
+  @override
+  State<MovieDetailPage> createState() => _MovieDetailPageState();
+}
+
+class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -23,7 +30,7 @@ class MovieDetailPage extends StatelessWidget {
                     fit: StackFit.expand,
                     children: [
                       Image.network(
-                        data.imgUrl,
+                        widget.data.imgUrl,
                         fit: BoxFit.fill,
                       ),
                       Container(
@@ -41,7 +48,7 @@ class MovieDetailPage extends StatelessWidget {
                             ),
                             SizedBox(height: 50),
                             Text(
-                              data.title,
+                              widget.data.title,
                               style: TextStyle(
                                 fontSize: 24,
                                 color: Colors.white,
@@ -50,7 +57,7 @@ class MovieDetailPage extends StatelessWidget {
                             ),
                             SizedBox(height: 10),
                             Text(
-                              "${data.publishedYear} | ${data.durationMin} | ${data.type}",
+                              "${widget.data.publishedYear} | ${widget.data.durationMin} | ${widget.data.type}",
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Color(0xff777777),
@@ -73,6 +80,23 @@ class MovieDetailPage extends StatelessWidget {
                           ),
                         ),
                       ),
+                      SafeArea(
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                widget.onToggleWishList(widget.data.id);
+                              });
+                            },
+                            icon: Icon(
+                              widget.wishListIds.any((e) => e == widget.data.id) ? Icons.favorite : Icons.favorite_border,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -89,7 +113,7 @@ class MovieDetailPage extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      data.description ?? '',
+                      widget.data.description ?? '',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
