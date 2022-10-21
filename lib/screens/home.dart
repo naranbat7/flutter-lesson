@@ -1,68 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:movie/providers/common.dart';
 import 'package:movie/screens/movies.dart';
 import 'package:movie/screens/profile.dart';
 import 'package:movie/screens/wishlist.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePage extends StatelessWidget {
+  HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  List<int> _wishListIds = [];
-  int _currentIndex = 2;
-  late List<Widget> _totalPage;
-
-  @override
-  void initState() {
-    super.initState();
-    _totalPage = [MoviesPage(_wishListIds, _toggleWishList), WishListPage(_wishListIds, _toggleWishList), ProfilePage()];
-  }
-
-  void _setCurrentIndex(int val) {
-    setState(() {
-      _currentIndex = val;
-    });
-  }
-
-  void _toggleWishList(int idx) {
-    print("toggle");
-    setState(() {
-      if (_wishListIds.any((e) => e == idx)) {
-        _wishListIds.remove(idx);
-      } else {
-        _wishListIds.add(idx);
-      }
-    });
-  }
+  final List<Widget> _totalPage = [MoviesPage(), WishListPage(), ProfilePage()];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xff36393f),
-      body: SafeArea(
-        child: _totalPage[_currentIndex],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: _setCurrentIndex,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.movie),
-            label: "Кино",
+    return Consumer<CommonProvider>(
+      builder: ((context, provider, child) {
+        return Scaffold(
+          backgroundColor: Color(0xff36393f),
+          body: SafeArea(
+            child: _totalPage[provider.currentIdx],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: "Дуртай",
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: provider.currentIdx,
+            onTap: provider.changeCurrentIdx,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.movie),
+                label: "Кино",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: "Дуртай",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: "Профайл",
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Профайл",
-          ),
-        ],
-      ),
+        );
+      }),
     );
   }
 }
