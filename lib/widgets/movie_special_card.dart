@@ -9,12 +9,12 @@ class MovieSpecialCard extends StatelessWidget {
   const MovieSpecialCard(this.data, {super.key});
 
   void _onCardTap(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: ((context) => MyBottomSheet(data)),
-    );
-    // Navigator.push(context, MaterialPageRoute(builder: (_) => MovieDetailPage(data)));
+    // showModalBottomSheet(
+    //   context: context,
+    //   isScrollControlled: true,
+    //   builder: ((context) => MyBottomSheet(data)),
+    // );
+    Navigator.push(context, MaterialPageRoute(builder: (_) => MovieDetailPage(data.id)));
   }
 
   @override

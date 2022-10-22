@@ -9,12 +9,12 @@ class MovieCard extends StatelessWidget {
   const MovieCard(this.data, {super.key});
 
   void _onCardTap(BuildContext context) {
-    showDialog(
-      context: context,
-      useSafeArea: false,
-      builder: ((context) => MyDialog(data)),
-    );
-    // Navigator.push(context, MaterialPageRoute(builder: (_) => MovieDetailPage(data)));
+    // showDialog(
+    //   context: context,
+    //   useSafeArea: false,
+    //   builder: ((context) => MyDialog(data)),
+    // );
+    Navigator.push(context, MaterialPageRoute(builder: (_) => MovieDetailPage(data.id)));
   }
 
   @override
