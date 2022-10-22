@@ -47,9 +47,5 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Зургийн сан руу орох шаардлагатай</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Камер руу орох шаардлагатай</string>
 </dict>
 </plist>
