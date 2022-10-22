@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:movie/model/movie/index.dart';
 import 'package:movie/providers/common.dart';
@@ -37,7 +38,7 @@ class _MoviesPageState extends State<MoviesPage> {
                 Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: Text(
-                    "Шилдэг",
+                    "top".tr(),
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -60,7 +61,7 @@ class _MoviesPageState extends State<MoviesPage> {
                 Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: Text(
-                    "Бүх кинонууд",
+                    "all".tr(),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 24,
