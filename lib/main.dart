@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:income/global_keys.dart';
 import 'package:income/providers/index.dart';
-import 'package:income/screens/login.dart';
+import 'package:income/services/native_channel.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -35,7 +35,19 @@ class MyApp extends StatelessWidget {
           ),
         ),
         navigatorKey: GlobalKeys.navigatorKey,
-        home: const LoginPage(),
+        home: Scaffold(
+          body: FutureBuilder(
+            future: NativeChannelService.getNativeCodeResult(),
+            builder: (context, snapshot) {
+              return Center(
+                child: Text(
+                  snapshot.data ?? "Хоосон",
+                  style: TextStyle(color: Colors.amberAccent),
+                ),
+              );
+            },
+          ),
+        ),
       ),
     );
   }
